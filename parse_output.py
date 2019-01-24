@@ -2,11 +2,17 @@ import json
 
 
 def main():
-    read_from_output()
+    data = read_from_output()
+    write_to_output(data)
+
 
 def read_from_output():
-    with open ("output.json", "r") as f:
+    with open("output.json", "r") as f:
         data = json.load(f)
+    return data
+
+
+def write_to_output(data):
     with open('output.txt', 'w') as f:
         for article in data["articles"]:
             f.write('Author: ' + article["author"] + '\n')
@@ -16,8 +22,6 @@ def read_from_output():
             f.write('\n')
     f.close()
 
+
 if __name__ == main():
     main()
-
-
-
