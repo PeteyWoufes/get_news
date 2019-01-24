@@ -4,8 +4,7 @@ import requests
 
 
 def main():
-    ''' newsapi = NewsApiClient(api_key='1b60d36b8c334b68b72754f9484fdf4b') '''
-    api_key= '1b60d36b8c334b68b72754f9484fdf4b'
+    api_key= '(APIKEY)'
     newsapi = get_authorization(api_key)
     query = get_query()
     source = get_source()
