@@ -9,7 +9,9 @@ def main():
     query = get_query()
     source = get_source()
     top_headlines = search_for_query(newsapi, query, source)
-    headlines = json.dumps(top_headlines, indent=4, separators=(",", ";"))
+    headlines = json.dumps(top_headlines, indent=4, separators=(",", ":"))
+    with open('output.json', 'w') as output:
+        json.dump(top_headlines, output)
     print(headlines)
 
 def get_api_key():
