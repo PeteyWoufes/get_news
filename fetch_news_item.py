@@ -5,13 +5,18 @@ import requests
 
 def main():
     ''' newsapi = NewsApiClient(api_key='1b60d36b8c334b68b72754f9484fdf4b') '''
-    api_key= '1b60d36b8c334b68b72754f9484fdf4b'
+    api_key = get_api_key()
     newsapi = get_authorization(api_key)
     query = get_query()
     source = get_source()
     top_headlines = search_for_query(newsapi, query, source)
     headlines = json.dumps(top_headlines, indent=4, separators=(",", ";"))
     print(headlines)
+
+def get_api_key():
+    with open("auth.json", "r") as a:
+        data = json.load(a)
+    return data["api_key"]
 
 def get_authorization(api_key):
     newsapi = NewsApiClient(api_key)
