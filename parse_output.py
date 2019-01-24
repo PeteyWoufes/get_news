@@ -3,7 +3,11 @@ import json
 
 def main():
     data = read_from_output()
-    write_to_output(data)
+    try:
+        write_to_output(data)
+    except TypeError:
+        with open("output.txt", "w") as f:
+            f.write("No results found.")
 
 
 def read_from_output():
