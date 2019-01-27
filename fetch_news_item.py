@@ -7,8 +7,8 @@ def main():
     api_key = get_api_key()
     newsapi = get_authorization(api_key)
     query = get_query()
-    source = get_source()
-    top_headlines = search_for_query(newsapi, query, source)
+    ''' source = get_source() '''
+    top_headlines = search_for_query(newsapi, query)
     write_output(top_headlines)
 
 
@@ -33,9 +33,9 @@ def get_source():
     return source
 
 
-def search_for_query(newsapi, query, source):
+def search_for_query(newsapi, query):
     top_headlines = newsapi.get_top_headlines(
-        q=query, sources=source, language='en')
+        q=query, language='en')
     return top_headlines
 
 
