@@ -27,8 +27,14 @@ def write_to_output(data):
                 f.write('Source: ' + article["source"]["name"] + '\n')
             except:
                 f.write('Unable to find source of this article. \n')
-            f.write(article["title"] + '\n')
-            f.write(article["description"] + '\n')
+            try:
+                f.write(article["title"] + '\n')
+            except:
+                f.write('Unable to find title of this article. \n')
+            try:
+                f.write(article["description"] + '\n')
+            except:
+                f.write('Unable to find description of this article. \n')
             try:
                 f.write(article["urlToImage"] + '\n')
             except:
