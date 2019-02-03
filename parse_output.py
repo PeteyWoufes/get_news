@@ -2,6 +2,7 @@ import json
 
 
 def main():
+    ''' Gets output in JSON format. '''
     data = read_from_output()
     try:
         write_to_output(data)
@@ -11,12 +12,14 @@ def main():
 
 
 def read_from_output():
+    ''' Loads the output into the memory. '''
     with open("output.json", "r") as f:
         data = json.load(f)
     return data
 
 
 def write_to_output(data):
+    ''' Converts the json values into plaintext. '''
     with open('output.txt', 'w') as f:
         for article in data["articles"]:
             try:
