@@ -4,8 +4,8 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from googleapiclient.discovery import build
 
-# If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/gmail.send']
+
 
 def get_authorizaton():
     creds = None
@@ -22,6 +22,7 @@ def get_authorizaton():
         with open('token.pickle', 'wb') as token:
             pickle.dump(creds, token)
     return creds
+
 
 def build_service(creds):
     service = build('gmail', 'v1', credentials=creds)
