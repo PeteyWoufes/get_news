@@ -2,61 +2,24 @@
 
 from __future__ import print_function
 import fetch_google_creds
-import base64
-from email.mime.text import MIMEText
-import mimetypes
+import pickle
+import os.path
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
+from googleapiclient.discovery import build
 
 
 def main():
-    creds = fetch_google_creds.fetch_creds()
+    creds = fetch_creds()
+    service = build_service(creds)
+
+def fetch_creds():
+    creds = fetch_google_creds.get_authorizaton()
+    return creds
+
+def build_service(creds):
     service = fetch_google_creds.build_service(creds)
-    file = open('output.txt', mode='r')
-    msg = file.read()
-    message = create_message(
-        "daily.news.updates.from.peter@gmail.com", "david.rolfe@pobox.com", "Hello", msg)
-    send_message(service, "me", message)
-    print('done')
+    return service
 
-
-def create_message(origin, destination, subject, message_text):
-    """
-    Create a message for an email.
-
-    Args:
-      sender: Email address of the sender.
-      to: Email address of the receiver.
-      subject: The subject of the email message.
-      message_text: The text of the email message.
-
-    Returns:
-      An object containing a base64url encoded email object.
-    """
-    message = MIMEText(message_text)
-    message['to'] = destination
-    message['from'] = origin
-    message['subject'] = subject
-    raw = base64.urlsafe_b64encode(message.as_bytes(message))
-    raw = raw.decode()
-    return {'raw': raw}
-
-
-def send_message(service, user_id, message):
-    """
-    Send an email message.
-
-    Args:
-      service: Authorized Gmail API service instance.
-      user_id: User's email address. The special value "me"
-      can be used to indicate the authenticated user.
-      message: Message to be sent.
-
-    Returns:
-      Sent Message.
-    """
-
-    message = (service.users().messages().send(userId=user_id, body=message)
-               .execute())
-    return message
-
-
-main()
+if __name__ == '__main__':
+    main()
