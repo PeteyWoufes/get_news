@@ -5,3 +5,4 @@ output.txt
 *.pyc
 credentials.json
 config.json
+*.pickle

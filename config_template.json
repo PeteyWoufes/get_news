@@ -1,4 +1,8 @@
 {
-    "destination": "destination@email.com",
-    "origin": "origin@email.com"
+    "destination": 
+        "destination@email.com"
+    ,
+    "origin": 
+        "origin@email.com"
+    
 }

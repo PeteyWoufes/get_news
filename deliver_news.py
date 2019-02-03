@@ -11,9 +11,10 @@ from datetime import date
 
 def main():
     ''' Credential Acquisition. '''
-    creds = fetch_google_creds.fetch_creds()
+    creds = fetch_google_creds.get_authorizaton()
     date = fetch_date()
-    data = fetch_email()
+    origin = fetch_origin()
+    destination = fetch_destination()
     ''' Builds service to access Gmail API. '''
     service = fetch_google_creds.build_service(creds)
     ''' Reads from pre-formatted output file. '''
@@ -21,7 +22,7 @@ def main():
     msg = file.read()
     ''' Creates message to be sent using args origin, destiantion, subject matter and body text. '''
     message = create_message(
-        data['origin'], data['destination'], "The news for the day " + date, msg)
+        origin, destination, "News for " + date, msg)
     '''
     Sends message using args service (the service that accesses the Gmail API), user_id (the email to send it from)
     and message (the message created earlier.)
@@ -78,10 +79,19 @@ def fetch_date():
     today = str(date.today())
     return today
 
-def fetch_email():
-    ''' Reads destination and origin from config file and returns it. '''
+
+def fetch_origin():
+    ''' Reads origin from config file and returns it. '''
     with open("config.json", "r") as a:
-        data = json.loads(a)
-    return data
+        data = json.load(a)
+    origin = data["origin"]
+    return origin
+
+def fetch_destination():
+    ''' Reads destination from config file and returns it. '''
+    with open("config.json", "r") as a:
+        data = json.load(a)
+    destination = data["destination"]
+    return destination
 
 main()
